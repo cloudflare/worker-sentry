@@ -1,0 +1,19 @@
+{
+  "name": "@cloudflare/worker-sentry",
+  "version": "1.0.0",
+  "description": "Intergation with Sentry over Access for Worker",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudflare/worker-sentry.git"
+  },
+  "author": "cloudflare",
+  "license": "MIT",
+  "dependencies": {
+    "toucan-js": "^2.2.0"
+  }
+}
