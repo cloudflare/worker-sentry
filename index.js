@@ -1,8 +1,6 @@
 import Toucan from 'toucan-js';
 
 export function initSentry(event, additionalOptions = {}) {
-  const request = event.request;
-
   const sentry = new Toucan({
     dsn: SENTRY_DSN,
     event: event,
@@ -29,12 +27,25 @@ export function initSentry(event, additionalOptions = {}) {
     },
     ...additionalOptions
   });
+  
+  if (typeof event.request === 'undefined') {
+    return sentry;
+  }
+
+  const request = event.request;
   const colo = request.cf && request.cf.colo ? request.cf.colo : 'UNKNOWN';
+
   sentry.setTag('colo', colo);
 
   // cf-connecting-ip should always be present, but if not we can fallback to XFF.
   const ipAddress = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for');
-  const userAgent = request.headers.get('user-agent') || '';
-  sentry.setUser({ ip: ipAddress, userAgent: userAgent, colo: colo });
+  const userAgent = request.headers.get('user-agent') || null;
+
+  sentry.setUser({
+    ip: ipAddress,
+    userAgent: userAgent,
+    colo: colo,
+  });
+
   return sentry;
 }
