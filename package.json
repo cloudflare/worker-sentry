@@ -1,9 +1,9 @@
 {
   "name": "@cloudflare/worker-sentry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Intergation with Sentry over Access for Worker",
-  "main": "index.js",
-  "module": "index.js",
+  "main": "index.mjs",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
