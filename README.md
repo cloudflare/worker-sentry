@@ -33,7 +33,7 @@ async function handleRequest(request, sentry) {
 
 ## Additional `toucan-js` options
 
-The API: `initSentry(event, additionalOptions = {})` allows any options to be passed directly to `toucan-js`. For instance to specify the `environement` the worker is running in.
+The API: `initSentry(event, additionalOptions = {})` allows any options to be passed directly to `toucan-js`. For instance to specify the `environment` the worker is running in.
 
 ## Usage with wrangler
 
