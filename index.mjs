@@ -1,11 +1,10 @@
-import Toucan from 'toucan-js';
+import { rewriteFramesIntegration, Toucan } from 'toucan-js';
 
-export function initSentry(event, additionalOptions = {}) {
-  const request = event.request;
-
+export function initSentry(request, env, context, additionalOptions = {}) {
   const sentry = new Toucan({
-    dsn: SENTRY_DSN,
-    event: event,
+    dsn: env.SENTRY_DSN,
+    context,
+    request,
     allowedHeaders: [
       'user-agent',
       'cf-challenge',
@@ -18,13 +17,13 @@ export function initSentry(event, additionalOptions = {}) {
       'host',
     ],
     allowedSearchParams: /(.*)/,
-    rewriteFrames: {
-      root: '/',
-    },
+    integrations: [
+      rewriteFramesIntegration({root: "/"})
+    ],
     transportOptions: {
       headers: {
-        'CF-Access-Client-ID': SENTRY_CLIENT_ID,
-        'CF-Access-Client-Secret': SENTRY_CLIENT_SECRET,
+        'CF-Access-Client-ID': env.SENTRY_CLIENT_ID,
+        'CF-Access-Client-Secret': env.SENTRY_CLIENT_SECRET,
       },
     },
     ...additionalOptions
