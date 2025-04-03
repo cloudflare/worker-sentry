@@ -5,18 +5,20 @@ export function initSentry(request, env, context, additionalOptions = {}) {
     dsn: env.SENTRY_DSN,
     context,
     request,
-    allowedHeaders: [
-      'user-agent',
-      'cf-challenge',
-      'accept-encoding',
-      'accept-language',
-      'cf-ray',
-      'content-length',
-      'content-type',
-      'x-real-ip',
-      'host',
-    ],
-    allowedSearchParams: /(.*)/,
+    requestDataOptions: {
+      allowedHeaders: [
+        'user-agent',
+        'cf-challenge',
+        'accept-encoding',
+        'accept-language',
+        'cf-ray',
+        'content-length',
+        'content-type',
+        'x-real-ip',
+        'host',
+      ],
+      allowedSearchParams: /(.*)/,
+    },
     integrations: [
       rewriteFramesIntegration({root: "/"})
     ],
